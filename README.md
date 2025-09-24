@@ -89,7 +89,7 @@ MATLAB scripts rely only on built-in functions (`readmatrix`, `ifft`, `surf`, et
 
 ## 📖 Reference
 For realization and theoretical details, assumptions, and full mathematical derivations,  
-please refer to my Master thesis: [Link to Thesis]([https://example.com/my-thesis.pdf](https://lup.lub.lu.se/luur/download?func=downloadFile&recordOId=9199261&fileOId=9201508))
+please refer to my Master thesis: [Link to Thesis](https://lup.lub.lu.se/luur/download?func=downloadFile&recordOId=9199261&fileOId=9201508)
 
 
 ---
