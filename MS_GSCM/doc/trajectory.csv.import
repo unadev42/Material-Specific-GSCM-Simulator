@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b3yy0k8cdcfpa"
+
+[deps]
+
+files=["res://doc/trajectory.TxY.translation", "res://doc/trajectory.TxV.translation", "res://doc/trajectory.RxX.translation", "res://doc/trajectory.RxY.translation", "res://doc/trajectory.RxV.translation"]
+
+source_file="res://doc/trajectory.csv"
+dest_files=["res://doc/trajectory.TxY.translation", "res://doc/trajectory.TxV.translation", "res://doc/trajectory.RxX.translation", "res://doc/trajectory.RxY.translation", "res://doc/trajectory.RxV.translation"]
+
+[params]
+
+compress=true
+delimiter=0

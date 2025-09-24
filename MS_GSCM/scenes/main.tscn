@@ -1,0 +1,191 @@
+[gd_scene load_steps=15 format=3 uid="uid://27pcrtky5351"]
+
+[ext_resource type="Script" uid="uid://c2lig3mi026ig" path="res://scripts/label.gd" id="1_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://c1u78mlkijgj6" path="res://scenes/vehicle_c.tscn" id="2_tipki"]
+[ext_resource type="PackedScene" uid="uid://c0ftw08224li6" path="res://scenes/vehicle_r.tscn" id="3_85g3d"]
+[ext_resource type="PackedScene" uid="uid://w5356hymm2ft" path="res://scenes/MAP.tscn" id="4_choun"]
+[ext_resource type="PackedScene" uid="uid://bn8glq8nv3iay" path="res://scenes/scatter_area.tscn" id="5_ya4ey"]
+[ext_resource type="Script" uid="uid://bg72v1hlk617t" path="res://scripts/ray_tracing.gd" id="6_eb6dy"]
+[ext_resource type="Script" uid="uid://d0cpq1tfa33lx" path="res://scripts/TrajectoryController.gd" id="7_trceg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a4dct"]
+albedo_color = Color(0.208497, 0.205814, 0.0698399, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_prpe3"]
+material = SubResource("StandardMaterial3D_a4dct")
+size = Vector3(700, 0.2, 700)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2t2gh"]
+size = Vector3(700, 0.2, 700)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ng6yo"]
+sky_top_color = Color(0.437565, 0.636317, 0.753869, 1)
+sky_horizon_color = Color(0.790245, 0.621536, 0.404902, 1)
+sky_curve = 0.178381
+ground_bottom_color = Color(0.0886725, 0.168492, 0.119331, 1)
+ground_horizon_color = Color(0.815686, 0.596078, 0.403922, 1)
+ground_curve = 0.03249
+
+[sub_resource type="Sky" id="Sky_3rqpc"]
+sky_material = SubResource("ProceduralSkyMaterial_ng6yo")
+
+[sub_resource type="Environment" id="Environment_facnu"]
+background_mode = 2
+sky = SubResource("Sky_3rqpc")
+ambient_light_source = 3
+ambient_light_color = Color(0.521508, 0.492856, 0.206881, 1)
+ambient_light_sky_contribution = 0.12
+ambient_light_energy = 1.29
+
+[sub_resource type="LabelSettings" id="LabelSettings_3he7l"]
+
+[node name="Simulator" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.65162, -0.1, 9.51143)
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("BoxMesh_prpe3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("BoxShape3D_2t2gh")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_facnu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 60.3192, 0)
+shadow_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DistanceDiaplay" type="Label" parent="CanvasLayer" node_paths=PackedStringArray("transmitter", "distance_label")]
+offset_left = 26.0
+offset_top = 23.0
+offset_right = 252.0
+offset_bottom = 112.0
+label_settings = SubResource("LabelSettings_3he7l")
+script = ExtResource("1_o6xl0")
+transmitter = NodePath("../../vehicle_t/AntennaTX")
+distance_label = NodePath(".")
+metadata/_edit_use_anchors_ = true
+
+[node name="vehicle_t" parent="." instance=ExtResource("2_tipki")]
+transform = Transform3D(-0.0179546, 9.99692e-08, 0.999835, -8.71737e-07, 1, -1.15639e-07, -0.999835, -8.73678e-07, -0.0179546, -46.693, 1, 129.882)
+script = null
+
+[node name="CollisionShape3D" parent="vehicle_t" index="0"]
+transform = Transform3D(1, -1.13687e-13, -3.72529e-09, 1.13687e-13, 1, 1.42109e-14, 3.72529e-09, -1.77636e-15, 1, -1.52588e-05, 0, -3.8147e-06)
+
+[node name="MeshInstance3D" parent="vehicle_t" index="1"]
+transform = Transform3D(1, 0, -9.31323e-10, 2.84217e-14, 1, -7.99361e-15, 9.31323e-10, 4.44089e-16, 1, 0, 0, 7.62939e-06)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, -30, 268, 0)
+
+[node name="vehicle_r" parent="." instance=ExtResource("3_85g3d")]
+transform = Transform3D(-0.990747, 0, 0.135716, 0, 1, 0, -0.135716, 0, -0.990747, -1.076, 0.01, -169.041)
+
+[node name="UrbanScene" parent="." instance=ExtResource("4_choun")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -31.7004, 0, -8.18943)
+
+[node name="ENERGYbase" parent="UrbanScene/map_4_osm_buildings" index="22"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -146.146, 0, 24.7639)
+
+[node name="Lunatone Industrielle Elektronik GmbH" parent="UrbanScene/map_4_osm_buildings" index="27"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.3064, 0, -22.3723)
+
+[node name="RTA Rail Tec Arsenal" parent="UrbanScene/map_4_osm_buildings" index="29"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -90.385, 0, -156.611)
+
+[node name="ROAD" parent="UrbanScene/map_4_osm_buildings" index="31"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.29, 0)
+
+[node name="ScatterMarkers" type="Node3D" parent="."]
+
+[node name="scatter_area1" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 8, 2.2, 18)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area2" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -84, 2.2, 146)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area3" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -25, 2.2, 123)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area4" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 29, 2.2, -30)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area5" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -70, 2.2, 166)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area6" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -69, 2.2, 112)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area7" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -21, 2.2, 88)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area8" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -16, 2.2, 45)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area9" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -36, 2.2, 70)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area10" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -25, 2.2, -37)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area11" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 44, 2.2, -161)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area12" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -54, 2.2, 99)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area13" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -29, 2.2, -127)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area14" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -40, 2.2, 153)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area15" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -29, 2.2, 5)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area16" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -29, 2.2, 154)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="scatter_area17" parent="ScatterMarkers" node_paths=PackedStringArray("environment_mesh") groups=["ScatterMarkers"] instance=ExtResource("5_ya4ey")]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, -33, 2.2, 44)
+environment_mesh = NodePath("../../UrbanScene")
+
+[node name="RayTracing" type="Node3D" parent="." node_paths=PackedStringArray("transmitter", "receiver", "Ground")]
+script = ExtResource("6_eb6dy")
+transmitter = NodePath("../vehicle_t/AntennaTX")
+receiver = NodePath("../vehicle_r/AntennaRX")
+Ground = NodePath("../Ground")
+draw_threshold = -50
+
+[node name="TrajectoryControl" type="Node3D" parent="."]
+script = ExtResource("7_trceg")
+tx_car_path = NodePath("../vehicle_t")
+rx_car_path = NodePath("../vehicle_r")
+
+[editable path="vehicle_t"]
+[editable path="vehicle_r"]
+[editable path="UrbanScene"]
