@@ -1,4 +1,4 @@
-# Material-Aware Geometry-Based Stochastic Channel Modeling
+# Material Specific Geometry-Based Stochastic Channel Modeling
 
 This repository contains the implementation of my Master thesis project,  
 **“Incorporating Material Characteristics in GSCM for Accurate Channel Modeling in Urban Scenarios”**,  
