@@ -12,7 +12,7 @@ It explores how material-aware reflection modeling improves the accuracy of wire
 ## ⚡Quick Start
 
 1. **Run the Godot project**
-   - Open the project under `/godotProject` in Godot.
+   - Import the project `MS_GSCM` under `/godotProject` in Godot.
    - Launch the main scene (`main.tscn`).
    - Simulation results will be generated in the project folder (e.g., `H_LOS.txt`, `H_ground.txt`, `H_NLOS_mode0.txt`, `H_NLOS_mode1.txt`).
 
