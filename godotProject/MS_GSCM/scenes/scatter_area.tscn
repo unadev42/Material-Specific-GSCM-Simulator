@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bn8glq8nv3iay"]
-
-[ext_resource type="Script" uid="uid://cvc8yivreek1l" path="res://scripts/scatter_area.gd" id="1_kv2s0"]
-
-[node name="scatter_area" type="Marker3D"]
-script = ExtResource("1_kv2s0")
