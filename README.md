@@ -9,8 +9,23 @@ It explores how material-aware reflection modeling improves the accuracy of wire
 
 ---
 
+## ⚡Quick Start
+
+1. **Run the Godot project**
+   - Open the project under `/godotProject` in Godot.
+   - Launch the main scene (`main.tscn`).
+   - Simulation results will be generated in the project folder (e.g., `H_LOS.txt`, `H_ground.txt`, `H_NLOS_mode0.txt`, `H_NLOS_mode1.txt`).
+
+2. **Post-processing in MATLAB**
+   - Open the MATLAB scripts under `/matlabScripts`.
+   - Update the file paths if needed (to match where the `.txt` files are saved).
+   - Run the script to visualize the channel response (PDP, LOS/NLOS comparison, etc.).
+
+
+---
+
 ## 📂 Project Structure
-- `godot/`  
+- `/godotProject`  
 
 
 ### Godot Structure
@@ -48,22 +63,12 @@ res://scripts/tools
 👉 The last three (`Building.gd`, `attach_building_script.gd`, `generate_collision.gd`) are particularly useful when you need to import and prepare new urban map models.
 
 
-- `matlab/`  
-  MATLAB scripts for processing the exported channel frequency responses and visualizing PDPs, comparing baseline vs. material-aware models.
+- `/matlabScripts`  
+  MATLAB script for processing the exported visualizing PDPs, comparing baseline vs. material-specific models.
 
-- `docs/`  
-  Supplementary notes, figures, and descriptions related to the thesis.
+- `/docs`  
+  Supplementary notes, figures, and descriptions related to the project.
 
----
-
-## 🚀 Features
-- LOS, ground, and NLOS path modeling within a Godot-based 3D environment.
-- Scatterer generation with material metadata (concrete, glass, metal, etc.).
-- Angular gain and material reflection coefficient models (IRACON baseline vs. enhanced model).
-- Parallelized computation of subcarrier responses for faster simulation.
-- MATLAB visualization of PDPs, with support for clipping, normalization, and model comparison.
-
----
 
 ## ⚙️ Requirements
 - **Godot Engine** (≥ 4.4)  
@@ -83,7 +88,7 @@ MATLAB scripts rely only on built-in functions (`readmatrix`, `ifft`, `surf`, et
 ---
 
 ## 📖 Reference
-For theoretical details, assumptions, and full mathematical derivations,  
+For realization and theoretical details, assumptions, and full mathematical derivations,  
 please refer to my Master thesis: [Link to Thesis]([https://example.com/my-thesis.pdf](https://lup.lub.lu.se/luur/download?func=downloadFile&recordOId=9199261&fileOId=9201508))
 
 
