@@ -53,7 +53,7 @@ In addition to the main simulation scripts which attached to the nodes above, se
 Some of them can (or need to) be used independently, especially when importing new map models.
 
 ```text
-res://scripts/tools
+res://tools
  ├─ Complex.gd                # Custom complex number class for arithmetic operations
  ├─ Building.gd               # Defines building properties (add group and material type)
  ├─ attach_building_script.gd # Batch-assigns Building.gd to building nodes
