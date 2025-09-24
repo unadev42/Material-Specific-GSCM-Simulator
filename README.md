@@ -83,7 +83,7 @@ MATLAB scripts rely only on built-in functions (`readmatrix`, `ifft`, `surf`, et
 - NLOS path comparison: IRACON GC + GA vs. Material-Specific GC + Enhanced GA  
 - Difference heatmaps highlighting model improvements 
 
-*(Figures will be added in `docs/`)*
+*(Figures are provided in `docs/`, corresponding to the results discussed in the thesis.)*
 
 ---
 
